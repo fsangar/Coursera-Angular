@@ -1,9 +1,14 @@
 export class DestinoViaje {
-  nombre:string;
-  imagenUrl:string;
 
-  constructor(n:string, u:string) {
-    this.nombre = n;
-    this.imagenUrl = u;
+  private selected: boolean = false;
+
+  constructor(public nombre:string,public imagenUrl:string, public servicios= ["desayuno",'media pensión'] ) {
+  }
+  isSelected(): boolean{
+    return this.selected;
+  }
+  setSelected(selected:boolean) {
+    this.selected = selected;
   }
 }
+

@@ -1,13 +1,28 @@
 <div class="card-content">
   <div class="card-img">
     <img src="{{destino.imagenUrl}}" alt="">
-    <span><h4>heading</h4></span>
+    <span><h4>{{posicion}}</h4></span>
   </div>
   <div class="card-desc">
     <h3>{{destino.nombre}}</h3>
-    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam, voluptatum! Dolor
-      quo, perspiciatis
-      voluptas totam</p>
-    <a href="#" class="btn-card">Read</a>
+    <p>Servicios</p>
+    <ul>
+      <!-- Recorremos los destinos-->
+      <li *ngFor="let s of destino.servicios">
+        <!-- Cambiamos el color del servicio mostrado si corresponde con alguno de los switch -->
+        <span [ngSwitch]="s">
+          <i *ngSwitchCase="'desayuno'" style="color:red">
+            {{s}}
+          </i>
+          <i *ngSwitchDefault>
+            {{s}}
+          </i>
+        </span>
+      </li>
+    </ul>
+    <!-- Definimos el evento click que llama a la función ir -->
+    <a href="#" class="btn-card" (click)="ir()">Ir!</a>
+    <!-- Mostramos un span si es seleccionado -->
+    <span *ngIf="destino.isSelected()">-- PREFERIDO --</span>
   </div>
 </div>

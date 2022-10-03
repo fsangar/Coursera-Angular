@@ -22,4 +22,11 @@ export class ListaDestinosComponent implements OnInit {
     // Es un principio de javascript para botones submit
     return false;
   }
+
+  //Cada vez que se seleccoina un destino ponemos el resto a no seleccionados
+  // y seleccionamos el que se ha pulsado
+  elegido (d:DestinoViaje){
+    this.destinos.forEach(function (x) {x.setSelected(false)});
+    d.setSelected(true);
+  }
 }
