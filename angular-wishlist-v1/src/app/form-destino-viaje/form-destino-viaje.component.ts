@@ -55,7 +55,7 @@ export class FormDestinoViajeComponent implements OnInit {
   nombreValidatorParametrizable(minLong: number):ValidatorFn{
     return (control: AbstractControl): { [key: string]: boolean } | null => {
       const l = control.value.toString().trim().length;
-      if (l > 0 && minLong < 5){
+      if (l > 0 &&  l < minLong){
         return {minLongNombre: true};
       }
       return {};
