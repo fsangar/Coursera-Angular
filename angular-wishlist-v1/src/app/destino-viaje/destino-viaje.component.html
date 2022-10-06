@@ -24,5 +24,6 @@
     <a href="#" class="btn-card" (click)="ir()">Ir!</a>
     <!-- Mostramos un span si es seleccionado -->
     <span *ngIf="destino.isSelected()">-- PREFERIDO --</span>
+    <a [routerLink]='["/destinos"]'  class="btn-card" >Ver detalle</a>
   </div>
 </div>

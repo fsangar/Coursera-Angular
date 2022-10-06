@@ -1,3 +1,24 @@
 <div class="container content">
-  <app-lista-destinos></app-lista-destinos>
+  <div class="row">
+    <div class="page-header">
+        <h1>Routing Simple</h1>
+        <nav class="navbar navbar-light p-2" style="background-color: #e3f2fd;">
+          <!-- Navbar content -->
+          <div class="navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto d-inline">
+              <li class="nav-item active d-inline">
+                <a [routerLink]="['/home']" class="navbar-brand">Home</a>
+              </li>
+              <li class="nav-item d-inline">
+                <a [routerLink]="['/destinos']" class="navbar-brand">Destinos</a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+    </div>
+    <h1>
+      {{title}}
+    </h1>
+  </div>
+  <router-outlet></router-outlet>
 </div>

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {DestinoViaje} from "../models/destino-viaje.model";
+import {DestinoApiClient} from "../models/destinos-api-client.model";
 
 @Component({
   selector: 'app-lista-destinos',
@@ -7,6 +8,7 @@ import {DestinoViaje} from "../models/destino-viaje.model";
   styleUrls: ['./lista-destinos.component.scss']
 })
 export class ListaDestinosComponent implements OnInit {
+
   destinos: DestinoViaje[];
 
   constructor() {
@@ -15,16 +17,13 @@ export class ListaDestinosComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
-  guardar (nombre:string, url:string):boolean{
-    this.destinos.push(new DestinoViaje(nombre, url));
-    // Devolvemos un valor falso para que no recargue la página.
-    // Es un principio de javascript para botones submit
-    return false;
+  // Borramos la función guardar y creamos la función agregar.
+  // Almacena el destino y emite el evento hacia arriba.
+  agregar (d: DestinoViaje){
+    this.destinos.push(d);
   }
 
-  //Cada vez que se seleccoina un destino ponemos el resto a no seleccionados
-  // y seleccionamos el que se ha pulsado
+  //Cada vez que se seleccoina un destino ponemos el resto a no seleccionados y seleccionamos el que se ha pulsado
   elegido (d:DestinoViaje){
     this.destinos.forEach(function (x) {x.setSelected(false)});
     d.setSelected(true);
