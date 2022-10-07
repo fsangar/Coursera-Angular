@@ -1,6 +1,8 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {DestinoViaje} from "../models/destino-viaje.model";
 import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators} from "@angular/forms";
+import {debounceTime, distinctUntilChanged, filter, fromEvent, map, switchMap} from "rxjs";
+import {ajax} from "rxjs/internal/ajax/ajax";
 
 @Component({
   selector: 'app-form-destino-viaje',
@@ -12,10 +14,11 @@ export class FormDestinoViajeComponent implements OnInit {
   @Output() onItemAdded: EventEmitter<DestinoViaje>;
   // Definimos el formularo que es de tipo FromGruop
   fg: FormGroup;
-  // FormBuilder permite definir la construcción del formulario, nombre y url serán los elementos vinculados al formulario, permitirá hacer validaciones sobre los mismos
 
   minLongitud = 3;
+  searchResults= null;
 
+  // FormBuilder permite definir la construcción del formulario, nombre y url serán los elementos vinculados al formulario, permitirá hacer validaciones sobre los mismos
   constructor(fb: FormBuilder) {
     this.onItemAdded = new EventEmitter<DestinoViaje>();
     this.fg = fb.group({
@@ -33,6 +36,22 @@ export class FormDestinoViajeComponent implements OnInit {
     });
   }
   ngOnInit(): void {
+    // Capturamos el evento del input con fromEvent
+    let elemNombre = <HTMLInputElement>document.querySelector("#nombre");
+    fromEvent(elemNombre, 'input')
+      // Pipe nos permite hacer secuencias de códigos condicionales a que las anteriores hayan funcionado
+      .pipe(
+        map((e)=> (e.target as HTMLInputElement).value),
+        filter(text => text.length > 2),
+        // Se queda parado 200ms, no permite introducir más de un carácter en < 200ms
+        debounceTime(200),
+        // Buscamos datos distintos
+        distinctUntilChanged(),
+        // Mandaría el texto al webService
+        switchMap(() => ajax("assets/datos.json"))
+      ).subscribe((ajaxResponse => {
+        console.log(ajaxResponse.response);
+    }));
   }
   // Función que crea un destion con su nombre y url y emite un evento al componente superior.En nuestro caso el componente superior es el que crea este, es decir lista-destino-viajes
   guardar(nombre: string, url:string):boolean {

@@ -7,6 +7,9 @@
   <div class="form-group">
     <label for="nombre">nombre</label>
     <input type="text" class="form-control" id="nombre" placeholder="ingresar nombre..." formControlName="nombre">
+    <ul>
+      <li *ngFor="let result of searchResults">{{result}}</li>
+    </ul>
     <!-- Comprobamos si es válido el nombre -->
     <!--<div *ngIf="!fg.controls['nombre'].valid">Nombre inválido</div>-->
     <!-- Otra forma de validar: Comprobamos si el formulario contienen el error requerido -->
