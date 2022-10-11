@@ -65,10 +65,10 @@ export function reducerDestinosViajes (
 @Injectable()
 export class DestinosViajesEffects {
   @Effect()
-  nuevoAgregado$: Observable<Action<any>> = this.actions$.pipe(
+  nuevoAgregado$: Observable<Action> = this.actions$.pipe(
     ofType(DestinosViajesActionTypes.NUEVO_DESTINO),
     map((action: NuevoDetinoAction)=> new ElegidoFavoritoAction(action.destino))
   );
-  constructor(private actions$: Action<any>){}
+  constructor(private actions$: Action){}
 }
 
