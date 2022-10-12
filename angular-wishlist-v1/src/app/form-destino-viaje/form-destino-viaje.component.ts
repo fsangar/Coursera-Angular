@@ -16,7 +16,7 @@ export class FormDestinoViajeComponent implements OnInit {
   fg: FormGroup;
 
   minLongitud = 3;
-  searchResults:string[]= [];
+  searchResults= null;
 
   // FormBuilder permite definir la construcción del formulario, nombre y url serán los elementos vinculados al formulario, permitirá hacer validaciones sobre los mismos
   constructor(fb: FormBuilder) {
@@ -38,26 +38,20 @@ export class FormDestinoViajeComponent implements OnInit {
   ngOnInit(): void {
     // Capturamos el evento del input con fromEvent
     let elemNombre = <HTMLInputElement>document.querySelector("#nombre");
-    // Utilizamos un selector de eventos, parametros elelemento y nombre del evento.
     fromEvent(elemNombre, 'input')
       // Pipe nos permite hacer secuencias de códigos condicionales a que las anteriores hayan funcionado
       .pipe(
-        // Convierte el evento de teclado 'e' a un tipo elemento de HTML y obtenemos su valor completo.
         map((e)=> (e.target as HTMLInputElement).value),
-        // Buscamos cuando la longitud es mayor de 2
         filter(text => text.length > 2),
-        // Sólo busca si las teclas se han pulsado con diferencia de >= 200ms
+        // Se queda parado 200ms, no permite introducir más de un carácter en < 200ms
         debounceTime(200),
-        // Buscamos si ha cambiado el valor del input, descarta si el usuario pone una x y la borra
+        // Buscamos datos distintos
         distinctUntilChanged(),
         // Mandaría el texto al webService
-        switchMap(() => ajax("assets/datos.json")),
-      )
-      .subscribe(ajaxResponse => {
-        // Almacenamos el resultado de la búsqueda
+        switchMap(() => ajax("assets/datos.json"))
+      ).subscribe((ajaxResponse => {
         console.log(ajaxResponse.response);
-        this.searchResults = ajaxResponse.response as string[];
-    });
+    }));
   }
   // Función que crea un destion con su nombre y url y emite un evento al componente superior.En nuestro caso el componente superior es el que crea este, es decir lista-destino-viajes
   guardar(nombre: string, url:string):boolean {
