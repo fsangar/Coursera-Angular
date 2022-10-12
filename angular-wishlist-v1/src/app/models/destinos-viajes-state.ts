@@ -7,10 +7,15 @@ import {DestinoViaje} from "./destino-viaje.model";
 
 // ESTADO
 export interface DestinosViajesState {
+    // Almacena el total de destinos
     items: DestinoViaje[];
+    // Permite almacenar el estado de la carga de datos por ajax
     loading: boolean;
+    // Almacena el destino favorito
     favorito: DestinoViaje;
 }
+
+// Inicializa los estados.
 export const initializeDestinosViajesState = function (){
     return {
       items: [],
@@ -33,10 +38,11 @@ export class ElegidoFavoritoAction implements Action {
   constructor (public destino: DestinoViaje){}
 }
 
-// Agrupa toda las acciones
+// Agrupa todos los tipos de acciones del sistema, unión de tipos
 export type DestinosViajesActions = NuevoDetinoAction | ElegidoFavoritoAction;
 
 //REDUCES
+// Reductores, cada vez que se realiza una acción se dispara un reductor.
 export function reducerDestinosViajes (
     state: DestinosViajesState,
     action: DestinosViajesActions
@@ -62,6 +68,7 @@ export function reducerDestinosViajes (
 }
 
 // EFFECTS
+// Registra una nueva acción sobre otra acción
 @Injectable()
 export class DestinosViajesEffects {
   @Effect()
@@ -69,6 +76,7 @@ export class DestinosViajesEffects {
     ofType(DestinosViajesActionTypes.NUEVO_DESTINO),
     map((action: NuevoDetinoAction)=> new ElegidoFavoritoAction(action.destino))
   );
+
   constructor(private actions$: Action){}
 }
 
