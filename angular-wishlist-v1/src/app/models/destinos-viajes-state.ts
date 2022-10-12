@@ -72,11 +72,16 @@ export function reducerDestinosViajes (
 /*@Injectable()
 export class DestinosViajesEffects {
   @Effect()
-  nuevoAgregado$: Observable<Action> = this.actions$.pipe(
+  nuevoAgregado$: Observable<Action<any>> = this.actions$.pipe(
     ofType(DestinosViajesActionTypes.NUEVO_DESTINO),
     map((action: NuevoDetinoAction)=> new ElegidoFavoritoAction(action.destino))
   );
+<<<<<<< HEAD
 
   constructor(private actions$: Action){}
 }*/
+=======
+  constructor(private actions$: Action<any>){}
+}
+>>>>>>> parent of d5b431c (Actualizado a la versión 14 de Angular y corregido algunos errores)
 

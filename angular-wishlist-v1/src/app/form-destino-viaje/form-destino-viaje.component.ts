@@ -1,6 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {DestinoViaje} from "../models/destino-viaje.model";
-import {AbstractControl, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, ValidatorFn, Validators} from "@angular/forms";
+import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators} from "@angular/forms";
 import {debounceTime, distinctUntilChanged, filter, fromEvent, map, switchMap} from "rxjs";
 import {ajax} from "rxjs/internal/ajax/ajax";
 
@@ -13,13 +13,13 @@ export class FormDestinoViajeComponent implements OnInit {
   // Definimos un evento de salida con el nombre onItemAdded
   @Output() onItemAdded: EventEmitter<DestinoViaje>;
   // Definimos el formularo que es de tipo FromGruop
-  fg: UntypedFormGroup;
+  fg: FormGroup;
 
   minLongitud = 3;
   searchResults:string[]= [];
 
   // FormBuilder permite definir la construcción del formulario, nombre y url serán los elementos vinculados al formulario, permitirá hacer validaciones sobre los mismos
-  constructor(fb: UntypedFormBuilder) {
+  constructor(fb: FormBuilder) {
     this.onItemAdded = new EventEmitter<DestinoViaje>();
     this.fg = fb.group({
       // Validators.compose permite multiples validaciones
@@ -68,7 +68,7 @@ export class FormDestinoViajeComponent implements OnInit {
 
   // Las validaciones devuelven como resultado clave y valor
   // Ej. {required: true}
-  nombreValidator(control: UntypedFormControl): {[s:string]:boolean}{
+  nombreValidator(control: FormControl): {[s:string]:boolean}{
     const l = control.value.toString().trim().length;
     if (l > 0 && l < 5){
       return {invalidNombre: true};
