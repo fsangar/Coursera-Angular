@@ -22,17 +22,17 @@ export class ListaDestinosComponent implements OnInit {
     this.destinos = [];
     this.updates = [];
     // Solo nos interesan las subscripciones sobre el favorito de destinos
-    this.store.select(state => state.destinos.favorito).subscribe( d => {
-      if (d != null){
-        this.updates.push("Se ha elegido a "+ d.nombre);
-      }
-    });
-    // Definimos la acción que va a realizar el observable.
-/*    this.current.subscribe((d:DestinoViaje) =>{
+/*    this.store.select(state => state.destinos.favorito).subscribe( d => {
       if (d != null){
         this.updates.push("Se ha elegido a "+ d.nombre);
       }
     });*/
+    // Definimos la acción que va a realizar el observable.
+    this.current.subscribe((d:DestinoViaje) =>{
+      if (d != null){
+        this.updates.push("Se ha elegido a "+ d.nombre);
+      }
+    });
   }
 
   ngOnInit(): void {
@@ -49,8 +49,8 @@ export class ListaDestinosComponent implements OnInit {
     this.destinos.forEach(function (x) {x.setSelected(false)});
     d.setSelected(true);
     // con RxJS y la función next estamos emitiendo al observable que se ha producido un cambio.
-    /*this.current.next(d);*/
-    this.store.dispatch(new ElegidoFavoritoAction(d));
+    this.current.next(d);
+    /*this.store.dispatch(new ElegidoFavoritoAction(d));*/
   }
 
 }

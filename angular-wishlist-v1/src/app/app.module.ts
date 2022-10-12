@@ -16,7 +16,7 @@ import { ListaDestinosComponent } from './lista-destinos/lista-destinos.componen
 import { DestinoDetalleComponent } from './destino-detalle/destino-detalle.component';
 import { FormDestinoViajeComponent } from './form-destino-viaje/form-destino-viaje.component';
 import {
-  DestinosViajesEffects,
+/*  DestinosViajesEffects,*/
   DestinosViajesState,
   initializeDestinosViajesState,
   reducerDestinosViajes
@@ -30,7 +30,7 @@ import {
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full'},
   { path: 'home', component: ListaDestinosComponent},
-  { path: 'destino/:id', component: DestinoDetalleComponent}
+  { path: 'destinos', component: DestinoDetalleComponent}
 ];
 
 // redux init
@@ -38,9 +38,11 @@ const routes: Routes = [
 export interface AppState {
   destinos: DestinosViajesState;
 };
+/*
 const reducers: ActionReducerMap<AppState> = {
   destinos: reducerDestinosViajes
 };
+*/
 
 const reducersInitialState = {
   destinos: initializeDestinosViajesState()
@@ -65,8 +67,8 @@ const reducersInitialState = {
     FormsModule,
     // Permite manejar formularios reactivos
     ReactiveFormsModule,
-    NgRxStoreModule.forRoot(reducers, {initalState: reducersInitialState}),
-    EffectsModule.forRoot([DestinosViajesEffects])
+/*    NgRxStoreModule.forRoot(reducers, {initalState: reducersInitialState}),
+    EffectsModule.forRoot([DestinosViajesEffects])*/
   ],
   providers: [],
   bootstrap: [AppComponent]

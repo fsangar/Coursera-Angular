@@ -69,7 +69,7 @@ export function reducerDestinosViajes (
 
 // EFFECTS
 // Registra una nueva acción sobre otra acción
-@Injectable()
+/*@Injectable()
 export class DestinosViajesEffects {
   @Effect()
   nuevoAgregado$: Observable<Action> = this.actions$.pipe(
@@ -78,5 +78,5 @@ export class DestinosViajesEffects {
   );
 
   constructor(private actions$: Action){}
-}
+}*/
 
