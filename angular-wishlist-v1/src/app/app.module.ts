@@ -3,24 +3,20 @@ import { BrowserModule } from '@angular/platform-browser';
 
 // Importamos los módulos de los formularios
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import { StoreModule as NgRxStoreModule, ActionReducerMap } from '@ngrx/store';
-import { EffectsModule} from "@ngrx/effects";
 
 // Importamos los módulos de Routing
 import { RouterModule, Routes} from '@angular/router';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { DestinoViajeComponent } from './destino-viaje/destino-viaje.component';
-import { ListaDestinosComponent } from './lista-destinos/lista-destinos.component';
-import { DestinoDetalleComponent } from './destino-detalle/destino-detalle.component';
-import { FormDestinoViajeComponent } from './form-destino-viaje/form-destino-viaje.component';
-import {
-/*  DestinosViajesEffects,*/
-  DestinosViajesState,
-  initializeDestinosViajesState,
-  reducerDestinosViajes
-} from "./models/destinos-viajes-state";
+import { DestinoViajeComponent } from './components/destino-viaje/destino-viaje.component';
+import { ListaDestinosComponent } from './components/lista-destinos/lista-destinos.component';
+import { DestinoDetalleComponent } from './components/destino-detalle/destino-detalle.component';
+import { FormDestinoViajeComponent } from './components/form-destino-viaje/form-destino-viaje.component';
+import { LoginComponent } from './components/login/login/login.component';
+import { ProtectedComponent } from './componets/protected/protected/protected.component';
+import {UsuarioLogueadoGuard} from "./guards/usuario-logueado/usuario-logueado.guard";
+import {AuthService} from "./services/auth.service";
 
 // Definimos una constantes que es de tipo Router
 // path = ruta
@@ -30,24 +26,13 @@ import {
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full'},
   { path: 'home', component: ListaDestinosComponent},
-  { path: 'destinos', component: DestinoDetalleComponent}
+  { path: 'destinos', component: DestinoDetalleComponent},
+  { path: 'login', component: LoginComponent},
+  { path: 'protected',
+    component: ProtectedComponent,
+    canActivate: [UsuarioLogueadoGuard]
+  }
 ];
-
-// redux init
-// Defino el estado general de la aplicación
-export interface AppState {
-  destinos: DestinosViajesState;
-};
-/*
-const reducers: ActionReducerMap<AppState> = {
-  destinos: reducerDestinosViajes
-};
-*/
-
-const reducersInitialState = {
-  destinos: initializeDestinosViajesState()
-};
-// redux fin init
 
 
 @NgModule({
@@ -57,6 +42,8 @@ const reducersInitialState = {
     ListaDestinosComponent,
     DestinoDetalleComponent,
     FormDestinoViajeComponent,
+    LoginComponent,
+    ProtectedComponent,
   ],
   imports: [
     BrowserModule,
@@ -70,7 +57,10 @@ const reducersInitialState = {
 /*    NgRxStoreModule.forRoot(reducers, {initalState: reducersInitialState}),
     EffectsModule.forRoot([DestinosViajesEffects])*/
   ],
-  providers: [],
+  providers: [
+    AuthService,
+    UsuarioLogueadoGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
