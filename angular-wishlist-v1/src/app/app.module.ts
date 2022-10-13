@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {InjectionToken, NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 // Importamos los módulos de los formularios
@@ -23,7 +23,14 @@ import { VuelosMasInfoComponentComponent } from './components/vuelos/vuelos-mas-
 import { VuelosDetalleComponentComponent } from './components/vuelos/vuelos-detalle-component/vuelos-detalle-component.component';
 import { ReservasModule } from './reservas/reservas.module';
 
-
+// app config
+export interface AppConfig {
+  apiEndpoint: String;
+}
+const APP_CONFIG_VALUE: AppConfig = {
+  apiEndpoint: "http://localhost:3000"
+}
+export const APP_CONFIG = new InjectionToken<AppConfig>('app.config');
 
 export const childrenRoutesVuelos: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -83,7 +90,8 @@ const routes: Routes = [
   ],
   providers: [
     AuthService,
-    UsuarioLogueadoGuard
+    UsuarioLogueadoGuard,
+    { provide: APP_CONFIG, useValue: APP_CONFIG_VALUE}
   ],
   bootstrap: [AppComponent]
 })
