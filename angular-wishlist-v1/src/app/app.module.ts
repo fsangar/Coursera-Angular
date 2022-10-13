@@ -21,6 +21,7 @@ import { VuelosComponentComponent } from './components/vuelos/vuelos-component/v
 import { VuelosMainComponentComponent } from './components/vuelos/vuelos-main-component/vuelos-main-component.component';
 import { VuelosMasInfoComponentComponent } from './components/vuelos/vuelos-mas-info-component/vuelos-mas-info-component.component';
 import { VuelosDetalleComponentComponent } from './components/vuelos/vuelos-detalle-component/vuelos-detalle-component.component';
+import { ReservasModule } from './reservas/reservas.module';
 
 
 
@@ -29,7 +30,7 @@ export const childrenRoutesVuelos: Routes = [
   { path: 'main', component: VuelosMainComponentComponent},
   { path: 'mas-info', component: VuelosMasInfoComponentComponent},
   { path: ':id', component: VuelosDetalleComponentComponent},
-]
+];
 
 // Definimos una constantes que es de tipo Router
 // path = ruta
@@ -76,6 +77,7 @@ const routes: Routes = [
     FormsModule,
     // Permite manejar formularios reactivos
     ReactiveFormsModule,
+    ReservasModule,
 /*    NgRxStoreModule.forRoot(reducers, {initalState: reducersInitialState}),
     EffectsModule.forRoot([DestinosViajesEffects])*/
   ],
