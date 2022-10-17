@@ -13,6 +13,9 @@ export class DestinoApiClient {
   getAll (): Array<DestinoViaje>{
     return this.destinos;
   }
+  getById (id: number) {
+    return this.destinos.filter((x)=> x.id == id)[0];
+  }
 
 }
 

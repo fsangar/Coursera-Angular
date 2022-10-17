@@ -1,5 +1,6 @@
 import {InjectionToken, NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
 
 // Importamos los módulos de los formularios
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -87,6 +88,7 @@ const routes: Routes = [
     ReservasModule,
 /*    NgRxStoreModule.forRoot(reducers, {initalState: reducersInitialState}),
     EffectsModule.forRoot([DestinosViajesEffects])*/
+    NgxMapboxGLModule
   ],
   providers: [
     AuthService,
