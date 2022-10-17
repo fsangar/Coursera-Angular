@@ -109,6 +109,5 @@
   },
   "cli": {
     "analytics": false
-  },
-  "defaultProject": "angular-wishlist"
+  }
 }

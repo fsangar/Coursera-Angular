@@ -1,4 +1,4 @@
-<div class="card-content">
+<div class="card-content" [@esFavorito]="destino.isSelected() ? 'estadoFavorito' : 'estadoNoFavorito'">
   <div class="card-img">
     <img src="{{destino.imagenUrl}}" alt="">
     <span><h4>{{posicion}}</h4></span>
@@ -6,6 +6,14 @@
   <div class="card-desc">
     <h3>{{destino.nombre}}</h3>
     <p>Servicios</p>
+    <div>
+      <a href="#"   appTrackearClick data-trackear-tags="destino_vote_up lista_destinos_item">
+        <i class="material-icons md-18">trumb_up</i>
+      </a>
+      <a href="#" appTrackearClick data-trackear-tags="destino_vote_down lista_destinos_item">
+        <i class="material-icons md-18">trumb_down</i>
+      </a>
+    </div>
     <ul>
       <!-- Recorremos los destinos-->
       <li *ngFor="let s of destino.servicios">
@@ -21,9 +29,11 @@
       </li>
     </ul>
     <!-- Definimos el evento click que llama a la función ir -->
-    <a href="#" class="btn-card" (click)="ir()">Ir!</a>
+    <a href="#" class="btn-card" (click)="ir()"
+       appTrackearClick data-trackear-tags="destino_elegido_preferido lista_destinos_item"
+    >Ir!</a>
     <!-- Mostramos un span si es seleccionado -->
     <span *ngIf="destino.isSelected()">-- PREFERIDO --</span>
-    <a [routerLink]='["/destinos"]'  class="btn-card" >Ver detalle</a>
+    <a [routerLink]='["/destino/"+destino.id]'  class="btn-card" >Ver detalle</a>
   </div>
 </div>

@@ -23,6 +23,10 @@ import { VuelosMainComponentComponent } from './components/vuelos/vuelos-main-co
 import { VuelosMasInfoComponentComponent } from './components/vuelos/vuelos-mas-info-component/vuelos-mas-info-component.component';
 import { VuelosDetalleComponentComponent } from './components/vuelos/vuelos-detalle-component/vuelos-detalle-component.component';
 import { ReservasModule } from './reservas/reservas.module';
+import {DestinoApiClient} from "./models/destinos-api-client.model";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { EspiameDirective } from './espiame.directive';
+import { TrackearClickDirective } from './trackear-click.directive';
 
 // app config
 export interface AppConfig {
@@ -49,6 +53,7 @@ const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full'},
   { path: 'home', component: ListaDestinosComponent},
   { path: 'destinos', component: DestinoDetalleComponent},
+  { path: 'destino/:id', component: DestinoDetalleComponent},
   { path: 'login', component: LoginComponent},
   { path: 'protected',
     component: ProtectedComponent,
@@ -75,6 +80,8 @@ const routes: Routes = [
     VuelosMainComponentComponent,
     VuelosMasInfoComponentComponent,
     VuelosDetalleComponentComponent,
+    EspiameDirective,
+    TrackearClickDirective,
   ],
   imports: [
     BrowserModule,
@@ -88,12 +95,14 @@ const routes: Routes = [
     ReservasModule,
 /*    NgRxStoreModule.forRoot(reducers, {initalState: reducersInitialState}),
     EffectsModule.forRoot([DestinosViajesEffects])*/
-    NgxMapboxGLModule
+    NgxMapboxGLModule,
+    BrowserAnimationsModule
   ],
   providers: [
     AuthService,
     UsuarioLogueadoGuard,
-    { provide: APP_CONFIG, useValue: APP_CONFIG_VALUE}
+    { provide: APP_CONFIG, useValue: APP_CONFIG_VALUE},
+    DestinoApiClient
   ],
   bootstrap: [AppComponent]
 })
